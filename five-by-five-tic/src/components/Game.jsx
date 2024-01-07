@@ -4,6 +4,7 @@ import Snake from "./Snake";
 import themesong from "./themesong.mp3";
 import { GoGoal } from "react-icons/go";
 import { FaHeart } from "react-icons/fa";
+import { Navigate, useNavigate } from "react-router-dom";
 export default function Game(props) {
   const [one, setone] = useState("");
   const [two, settwo] = useState("");
@@ -31,6 +32,7 @@ export default function Game(props) {
   const [twentyfour, settwentyfour] = useState("");
   const [twentyfive, settwentyfive] = useState("");
   const [score, setscore] = useState(0);
+  const [time, settime] = useState(props.gametime);
   const [showlevel, setshowlevel] = useState("BORN");
   const [life, setlife] = useState(3);
   let [level, setlevel] = useState(1000);
@@ -61,6 +63,7 @@ export default function Game(props) {
   arrayofsetters.push(settwentyfour);
   arrayofsetters.push(settwentyfive);
 
+  const navigate = useNavigate();
   function findLevel() {
     if (score > 15) {
       setlevel(750);
@@ -83,6 +86,10 @@ export default function Game(props) {
       selectingRandomBoxesforRabbit();
       props.gamesetscore(score);
       findLevel();
+      settime(time - 1);
+      if (time <= 0) {
+        navigate("/scoreboard");
+      }
     }, [1000]);
   }, [Math.round(new Date().getTime() / level)]);
 
@@ -143,7 +150,7 @@ export default function Game(props) {
   };
 
   return (
-    <div className="h-screen  bg-gray-800">
+    <div className="h-screen  bg-gray-800 fixed left-0 right-0 top-0">
       <audio className="hidden" controls loop autoPlay src={themesong}></audio>
       <div className="flex justify-evenly pt-4">
         <h1 className="font-mono font-semibold text-3xl text-teal-600 my-auto">
@@ -159,6 +166,9 @@ export default function Game(props) {
           <h1 className="bg-gray-900 border-4 rounded-lg border-double border-red-600  text-white text-center  px-6 py-4 my-6 font-mono font-semibold">
             {showlevel}
           </h1>
+          <h1 className="bg-gray-900 border-4 rounded-lg border-double border-red-600  text-white text-center  px-6 py-4 my-6 font-mono font-semibold">
+            {time} sec
+          </h1>
           <h1 className="bg-gray-900 flex justify-evenly border-4 border-double border-green-600 rounded-r-2xl text-white text-center  px-6 py-4 my-6 font-mono ">
             <FaHeart className="my-auto text-red-500 text-xl"></FaHeart> :{life}
           </h1>
@@ -168,7 +178,7 @@ export default function Game(props) {
         <h1 className="font-mono font-semibold text-3xl text-teal-600 my-auto"></h1>
       </div>
       <div className="h-[90%] flex justify-evenly">
-        <div className="w-[95%] h-[70%] lg:w-[45%] lg:h-[70%] rounded-xl overflow-hidden border-2 border-teal-600">
+        <div className="w-[95%] h-[70%] lg:w-[45%] md:h-[70%] rounded-xl overflow-hidden border-2 border-teal-600">
           <div className="h-[20%] flex justify-evenly bg-green">
             <button className="w-[20%]    border-2 border-teal-600 ">
               {one}

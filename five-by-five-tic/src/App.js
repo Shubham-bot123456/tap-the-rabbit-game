@@ -10,23 +10,26 @@ import LandingScreen from "./components/LandlingScreen";
 import themesong from "./components/themesong.mp3";
 function App() {
   const [score, setscore] = useState(0);
+  const [time, settime] = useState(100);
   return (
     <div>
       <BrowserRouter>
         <Routes>
           <Route
-            element={<Game gamesetscore={setscore} />}
+            element={<Game gamesetscore={setscore} gametime={time} />}
             path="/game"
           ></Route>
           <Route
             element={<Scoreboard finalscore={score} />}
             path="/scoreboard"
           ></Route>
-          <Route element={<LandingScreen />} path="/"></Route>
+          <Route
+            element={<LandingScreen setgametime={settime} />}
+            path="/"
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
-
 export default App;

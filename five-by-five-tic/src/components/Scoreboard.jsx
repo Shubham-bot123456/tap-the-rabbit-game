@@ -9,7 +9,7 @@ export default function Scoreboard(props) {
         <h1 className="text-2xl">Goals you achieved</h1>
         <h2 className="text-6xl mb-4">{props.finalscore}</h2>
         <Link
-          to="/game"
+          to="/"
           className="px-4 py-2  font-mono bg-teal-600 rounded-xl font-semibold"
         >
           SPAWN AGAIN
